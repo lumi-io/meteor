@@ -1,0 +1,22 @@
+.container {
+  padding: 0 2rem;
+  min-height: 100%;
+}
+
+.loginContainer {
+  margin: 40px auto;
+  min-width: 4rem;
+  align-content: center;
+  text-align: center;
+  border: 1px;
+  border-color: aquamarine;
+  border-radius: 1rem;
+
+}
+
+.titleText {
+  margin-bottom: 30px;
+  line-height: 1.15;
+  font-size: 2rem;
+  font-weight: 700;
+}
