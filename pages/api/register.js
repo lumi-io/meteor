@@ -1,21 +1,19 @@
-import init from "../../firebase/init";
-
-const db = init.db;
+import db from "../../firebase/init-admin";
 
 export default async function handler(req, res) {
-  if (req.method === "POST") {
-    const docRef = doc(db, "profile", user.uid);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      console.log("data exists");
-      return;
-    } else {
-      await setDoc(doc(db, "profile", user.uid), data);
+  try {
+    const uid = req.body.uid;
+    if (req.method === "POST") {
+      const docRef = await db.collection("profile").doc(uid).set(req.body);
+      const userRef = db.collection("users").doc(uid);
+      await userRef.update({
+        formSubmitted: true,
+        pendingApproval: true,
+      });
+      // console.log(res);
+      res.status(201).end()
     }
+  } catch (err) {
+    console.log(err);
   }
 }
-
-// if user is logged in,
-// Get user info, process to get needed data
-// receive JSON object of user registration data
-// submit and post to database.

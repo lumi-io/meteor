@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding-left: 256px;
+  justify-content: flex-end;
+}
+
+.navigationButton {
+  display: flex;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: pointer;
+  color: rgb(85, 94, 127);
+  text-decoration: none;
+  transition: background-color .15s ease;
+  font-size: 14px;
+  height: 36px;
+  line-height: 20px;
+  font-weight: 500;
+  padding: 0 24px;
+  border-radius: 10px;
+}
+.navigationButton:hover {
+  background :rgb(235, 235, 235)
+}
+
+
+.navigationButtonText {
+  margin-left: 6px;
+
+}

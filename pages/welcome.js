@@ -12,7 +12,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 
-import * as yup from "yup";
+import axios from "axios";
 import { Formik, Form, Field } from "formik";
 
 const Welcome = () => {
@@ -23,11 +23,14 @@ const Welcome = () => {
   useEffect(() => {
     if (userData) {
       if (userData.isVerified) router.push("/home");
-      else if (userData.formSubmitted && !userData.isVerified)
-        router.push("/error");
-      else if (userData.formSubmitted && userData.isPending)
+      else if (userData.isAdmin) router.push("/admin");
+      else if (userData.formSubmitted && userData.pendingApproval)
         router.push("/pending");
+      else if (!userData.isVerified && userData.formSubmitted)
+        router.push("/error");
       else setIsLoading(false);
+    } else {
+      router.push("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
@@ -55,13 +58,27 @@ const Welcome = () => {
             personalEmail: "",
           }}
           validate={(values) => {
-            
+            //   console.log(userData.data)
           }}
-          onSubmit={(values, actions) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              actions.setSubmitting(false);
-            }, 400);
+          onSubmit={async (values, actions) => {
+            let data = values;
+            data["uid"] = userData.data.uid;
+            await axios({
+              method: "post",
+              url: "/api/register",
+              data: values,
+            })
+              .then(() => {
+                router.push("/pending");
+              })
+              .catch((err) => {
+                console.log(err);
+                actions.setSubmitting(false);
+              });
+            // setTimeout(() => {
+            //   alert(JSON.stringify(values, null, 2));
+            //   actions.setSubmitting(false);
+            // }, 400);
           }}
         >
           {(props) => (

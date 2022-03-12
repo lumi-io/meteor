@@ -15,25 +15,35 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
+        console.log("user hit");
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const data = docSnap.data();
           setUserData({
+            status: true,
             data: user,
             isVerified: data.isVerified,
             formSubmitted: data.formSubmitted,
             pendingApproval: data.pendingApproval,
+            isAdmin: data.isAdmin,
           });
         } else {
+          console.log("hit");
           await setDoc(doc(db, "users", user.uid), {
             name: user.displayName,
             email: user.email,
             isVerified: false,
             formSubmitted: false,
             pendingApproval: false,
+            isAdmin: false,
           });
         }
+      } else {
+        console.log("not user")
+        setUserData({
+          status: false,
+        });
       }
     });
     return () => unsubscribe();

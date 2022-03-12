@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "pre-commit": "next lint --fix && git add -A ."
+    "pre-commit": "next lint --fix && git add -A .",
+    "test": "jest"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.3",
@@ -16,7 +17,9 @@
     "@emotion/styled": "^11.8.1",
     "@types/react": "^17.0.39",
     "axios": "^0.26.0",
+    "cors": "^2.8.5",
     "firebase": "^9.6.7",
+    "firebase-admin": "^10.0.2",
     "formik": "^2.2.9",
     "framer-motion": "^6.2.6",
     "next": "12.1.0",
@@ -28,8 +31,11 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.16.8",
     "eslint": "8.9.0",
     "eslint-config-next": "12.1.0",
-    "husky": "^7.0.4"
+    "husky": "^7.0.4",
+    "jest": "^27.5.1",
+    "jest-node-exports-resolver": "^1.1.5"
   }
 }
